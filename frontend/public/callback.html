@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify Authorization</title>
+</head>
+<body>
+    <h1>Spotify Authorization</h1>
+    <p>Copy the authorization code from the URL above and paste it below:</p>
+    
+    <div id="urlDisplay" style="background: #f0f0f0; padding: 10px; margin: 10px 0; word-break: break-all;"></div>
+    
+    <p><strong>Authorization Code:</strong></p>
+    <input type="text" id="codeInput" style="width: 100%; padding: 5px;" readonly>
+    
+    <br><br>
+    <button onclick="copyCode()">Copy Code</button>
+    
+    <script>
+        // Display the current URL
+        document.getElementById('urlDisplay').textContent = window.location.href;
+        
+        // Extract the code parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
+        const state = urlParams.get('state');
+        
+        if (code) {
+            document.getElementById('codeInput').value = code;
+        }
+        
+        function copyCode() {
+            const codeInput = document.getElementById('codeInput');
+            codeInput.select();
+            document.execCommand('copy');
+            alert('Code copied to clipboard!');
+        }
+        
+        // Also log to console for easy copying
+        console.log('Authorization Code:', code);
+        console.log('State:', state);
+        console.log('Full callback URL:', window.location.href);
+    </script>
+</body>
+</html>
